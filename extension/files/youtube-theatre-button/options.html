@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube theatre button &mdash; Options</title>
+    <style>
+        .container {margin: 0 auto; width:400px; border: 1px solid #ddd; padding: 10px 20px 0 20px; border-radius: 10px}
+        .footer-text {color: #777; text-align: center}
+        .footer-text a {color: #777; font-weight: 800}
+        
+        .alert {
+            border-radius: 3px;
+            background: rgba(147, 184, 252, 0.2);
+            display: block;
+            position: relative;
+            line-height: 17px;
+        }
+        
+        hr {border: 0; border-top: 1px solid #ccc;}
+    </style>
+</head>
+
+<body>
+    <div class='container'>
+        <header>
+            <h1>Settings</h1>
+        </header>
+        
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="closeCurrentTab">
+                <span>Close current tab after "Theatre mode" is clicked</span>
+            </label>
+        </div>
+                
+        <p class="alert" id="status"></p>
+        
+        <p>
+            <button id="save">Save</button>
+        </p>
+        
+        <hr>
+        
+        <p class='footer-text'>Developed by <a href="http://saydima.com">DT</a></p>
+    </div>
+    <script src="js/options.js"></script>
+</body>
+</html>

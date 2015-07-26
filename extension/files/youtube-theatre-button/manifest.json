@@ -6,21 +6,34 @@
 	"version": "1.0",
 
 	"browser_action": {
-		"default_icon": "icon.png"
+		"default_icon": {                   
+			"19": "img/icon.png",           
+			"38": "img/icon38.png"            
+        }
+	},
+	
+	"icons": {
+		"48": "img/icon48.png"
 	},
   
-	"permissions": ["windows", "tabs", "https://youtube.com/*", "http://youtube.com/*"],
+	"permissions": ["windows", "activeTab", "tabs", "storage", "https://*.youtube.com/*", "http://*.youtube.com/*"],
 	
 	"content_scripts": [
 		{
 			"matches": ["https://*.youtube.com/*", "http://*.youtube.com/*"],
-			"js": ["js/jq2.js", "js/myscript.js"],
-			"run_at": "document_end"
+			"js": ["js/jq2.js", "js/content.js"],
+			"run_at": "document_idle"
 		}
 	],
   
 	"background": {
-		"scripts": ["js/eventPage.js"],
-		"persistent": false
+		"persistent": true,
+		"scripts": ["js/jq2.js", "js/background.js"]
+	},
+	
+	"options_ui": {
+		"page": "options.html",
+		"chrome_style": true,
+		"open_in_tab": true
 	}
 }
