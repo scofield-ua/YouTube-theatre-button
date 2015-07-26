@@ -1,0 +1,26 @@
+{
+	"manifest_version": 2,
+
+	"name": "YouTube theatre button",
+	"description": "Theatre button just like on twitch.com",
+	"version": "1.0",
+
+	"browser_action": {
+		"default_icon": "icon.png"
+	},
+  
+	"permissions": ["windows", "tabs", "https://youtube.com/*", "http://youtube.com/*"],
+	
+	"content_scripts": [
+		{
+			"matches": ["https://*.youtube.com/*", "http://*.youtube.com/*"],
+			"js": ["js/jq2.js", "js/myscript.js"],
+			"run_at": "document_end"
+		}
+	],
+  
+	"background": {
+		"scripts": ["js/eventPage.js"],
+		"persistent": false
+	}
+}
