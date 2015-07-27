@@ -12,10 +12,13 @@ chrome.tabs.onCreated.addListener(function() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     switch (request.method) {
-        case 'closeCurrentTab' :
+        case 'changeCurrentTabUrl' :
             chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                chrome.tabs.remove(tabs[0].id);
+                chrome.tabs.update(tabs[0].id, {'url' : request.url});
             });
+        break;
+        case 'openNewTab' :
+            chrome.tabs.create({'url' : request.url});
         break;
     }    
 });
