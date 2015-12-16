@@ -6,4 +6,4 @@ New tab will be opened after you click on "Theatre button"
 ![Example](/img/1.png)
 
 ### How to install
-Download the extension [youtube-theatre-button.crx](extension/youtube-theatre-button.crx) and Drag&Drop it to your Chrome browser.
+Just install extension from [Chrome App Store](https://chrome.google.com/webstore/detail/youtube-theatre-button/fenojcmjeboiddfmgaclghjonfijcenc)
