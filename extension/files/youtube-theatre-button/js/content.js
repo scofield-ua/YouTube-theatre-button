@@ -56,8 +56,8 @@ function goFullWindow() {
         }    
         
         var start;
-        start = $('#movie_player:eq(0) .ytp-volume-hover-area .ytp-time-current').text().split(':');
-        start = start[0] * 1 > 0 ? (start[0] * 1) * (start[0] * 1) : start[1] * 1;
+        start = $('#player-api .ytp-time-display .ytp-time-current').text().split(':');
+        start = start[0] * 1 > 0 ? ((start[0] * 1) * 60) + (start[0] * 1) : start[1] * 1;
 
         var url = "http://www.youtube.com/embed/"+videoId+"?html5=1&autoplay=1&start="+start;
         
