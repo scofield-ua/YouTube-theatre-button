@@ -1,13 +1,9 @@
 chrome.tabs.onUpdated.addListener(function() {
-    chrome.tabs.executeScript(null, { file: "js/jq2.js" }, function() {
-        chrome.tabs.executeScript(null, { file: "js/content.js" });
-    });
+    chrome.tabs.executeScript(null, { file: "js/content.js" });
 });
 
 chrome.tabs.onCreated.addListener(function() {
-    chrome.tabs.executeScript(null, { file: "js/jq2.js" }, function() {
-        chrome.tabs.executeScript(null, { file: "js/content.js" });
-    });
+    chrome.tabs.executeScript(null, { file: "js/content.js" });
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -20,5 +16,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         case 'openNewTab' :
             chrome.tabs.create({'url' : request.url});
         break;
-    }    
+    }
 });
