@@ -1,5 +1,7 @@
 var mainInt;
 var execute = true;
+var theatreButton;
+
 try {
     var videoId = window.location.search.split('v=')[1];
     var ampersandPosition = videoId.indexOf('&');
@@ -8,51 +10,39 @@ try {
     execute = false;
 }
 
-if (!window.jQuery) execute = false;
+if(execute) {
+    var buttonContainer = document.querySelector('#movie_player .ytp-settings-menu .ytp-panel .ytp-panel-menu');
 
-if (execute) {
-    var buttonContainer = document.querySelector('#movie_player .ytp-settings-menu');
-
-    var theatreButton = document.createElement('div');
+    theatreButton = document.createElement('div');
     theatreButton.setAttribute('class', 'ytp-menuitem');
     theatreButton.setAttribute('id', 'yt-theatre-button');
     theatreButton.setAttribute('role', 'menuitem');
-    theatreButton.innerHtml =
-        '<div class="ytp-menuitem-label">Theatre Mode</div>'+
-        '<div class="ytp-menuitem-content" style="background-image:none"><div></div></div>';
+    theatreButton.innerHTML = '<div class="ytp-menuitem-label">Theatre Mode</div>' + '<div class="ytp-menuitem-content" style="background-image:none"><div></div></div>';
 
-    theatreButton.onclick = goFullWindow;
+    // attach click event
+    theatreButton.addEventListener('click', goFullWindow);
 
-    /*var theatreButton =
-        '<div class="ytp-menuitem" role="menuitem" id="yt-theatre-button" data-active="0">'+
-            '<div class="ytp-menuitem-label">Theatre Mode</div>'+
-            '<div class="ytp-menuitem-content" style="background-image:none"><div></div></div>'
-        '</div>';*/
-
-    if(buttonContainer.length) {
-        if(buttonContainer.querySelector('#yt-theatre-button').length == 0) {
+    if(buttonContainer !== null) {
+        if(buttonContainer.querySelector('#yt-theatre-button') === null) {
             buttonContainer.appendChild(theatreButton);
         }
-
-        /*if($('#movie_player #ytp-main-menu-id #yt-theatre-button').length == 0) {
-            $('#movie_player #ytp-main-menu-id').append(theatreButton);
-            $('#yt-theatre-button').click(goFullWindow);
-        }*/
     }
 }
 
-function goFullWindow() {
+function goFullWindow(event) {
+    event.stopPropagation();
+
     var closeCurrentTab = false;
     chrome.storage.sync.get(['closeCurrentTab'], function(items) {
         closeCurrentTab = items.closeCurrentTab;
-
-        var isPaused = $('#player-api .html5-video-player').hasClass('paused-mode') ? true : false;
+        var isPaused = document.querySelector('#player-api .html5-video-player').classList.contains('paused-mode') ? true : false;
         if (!isPaused) {
-            $('#movie_player .ytp-play-button.ytp-button').click();
+            // pause current video (by clicking on Play button)
+            document.querySelector('#player-api .ytp-play-button').click();
         }
 
         var start;
-        start = $('#player-api .ytp-time-display .ytp-time-current').text().split(':');
+        start = document.querySelector('#player-api .ytp-time-display .ytp-time-current').textContent.split(':');
         start = start[0] * 1 > 0 ? ((start[0] * 1) * 60) + (start[1] * 1) : start[1] * 1;
 
         var url = "http://www.youtube.com/embed/"+videoId+"?html5=1&autoplay=1&start="+start;
@@ -61,8 +51,8 @@ function goFullWindow() {
             chrome.runtime.sendMessage({method: "changeCurrentTabUrl", url : url});
         } else {
             chrome.runtime.sendMessage({method: "openNewTab", url : url});
-            //chrome.runtime.sendMessage({method: "changeUrl"});
         }
-        //window.open();
     });
+
+    return false;
 }

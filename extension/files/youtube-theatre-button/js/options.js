@@ -1,9 +1,7 @@
 // Saves options to chrome.storage.sync.
 function save_options() {
     var closeCurrentTab = document.getElementById('closeCurrentTab').checked;
-    
-    console.log(closeCurrentTab);
-    
+
     chrome.storage.sync.set({
         closeCurrentTab: closeCurrentTab,
     }, function() {
@@ -21,7 +19,6 @@ function save_options() {
 function restore_options() {
       // Use default value color = 'red' and likesColor = true.
     chrome.storage.sync.get(['closeCurrentTab'], function(items) {
-        console.log(items);
         document.getElementById('closeCurrentTab').checked = items.closeCurrentTab;
     });
 }
